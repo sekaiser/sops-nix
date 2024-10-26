@@ -251,8 +251,8 @@ in {
 
     # Darwin: load secrets once on login
     launchd.daemons.sops-nix = {
+      command = script;
       serviceConfig = {
-        Program = script;
         KeepAlive = false;
         RunAtLoad = true;
         StandardOutPath = cfg.logFile;
@@ -265,7 +265,7 @@ in {
         domain-target = "system";
       in ''
         /bin/launchctl bootout ${domain-target}/org.nixos.sops-nix && true
-        /bin/launchctl bootstrap ${domain-target} /Library/LaunchAgents/org.nixos.sops-nix.plist
+        /bin/launchctl bootstrap ${domain-target} /Library/LaunchDaemons/org.nixos.sops-nix.plist
       '';
   };
 }
